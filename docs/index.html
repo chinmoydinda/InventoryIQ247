@@ -1,0 +1,1837 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InventoryIQ247 — The Developer-First Inventory Engine & Hosted Cloud Platform</title>
+  <meta name="description" content="Open-source core and early-stage hosted developer platform for real-time inventory management. Atomic stock reservations, dynamic bundle resolution, and 24/7 webhook sync.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #090d16;
+      --bg-surface: #0f172a;
+      --bg-card: rgba(17, 24, 39, 0.7);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(99, 102, 241, 0.6);
+      --primary: #6366f1;
+      --primary-light: #818cf8;
+      --accent-cyan: #06b6d4;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 15% 70%, rgba(99, 102, 241, 0.06) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header & Nav */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(9, 13, 22, 0.85);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 4.5rem;
+    }
+
+    .logo-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .logo-icon {
+      width: 2.25rem;
+      height: 2.25rem;
+      background: linear-gradient(135deg, #6366f1, #06b6d4);
+      border-radius: 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+    }
+
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+    }
+
+    .logo-highlight {
+      background: linear-gradient(to right, #818cf8, #06b6d4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.5rem;
+      border-radius: 9999px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #a5b4fc;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.925rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--text-main);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.25rem;
+      border-radius: 0.5rem;
+      font-size: 0.925rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #4f46e5, #4338ca);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--border);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-sm {
+      padding: 0.45rem 0.85rem;
+      font-size: 0.825rem;
+    }
+
+    .btn-glow {
+      position: relative;
+    }
+
+    .btn-glow::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(90deg, #6366f1, #06b6d4, #10b981);
+      border-radius: inherit;
+      z-index: -1;
+      opacity: 0.5;
+      filter: blur(8px);
+      transition: opacity 0.2s;
+    }
+
+    .btn-glow:hover::after {
+      opacity: 0.8;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 5.5rem 0 4rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 0.35rem 0.95rem;
+      border-radius: 9999px;
+      font-size: 0.825rem;
+      color: #c7d2fe;
+      margin-bottom: 1.75rem;
+      box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+    }
+
+    .pulse-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      max-width: 900px;
+      margin-inline: auto;
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .text-accent-gradient {
+      background: linear-gradient(135deg, #818cf8 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+      font-weight: 400;
+    }
+
+    .hero-ctas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+
+    .quick-snippet {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #a5b4fc;
+    }
+
+    .copy-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: color 0.2s;
+    }
+
+    .copy-btn:hover {
+      color: #fff;
+    }
+
+    /* Trust / Proof Stats */
+    .stat-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      padding: 2.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      backdrop-filter: blur(12px);
+      margin-bottom: 5rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: var(--text-main);
+      font-family: var(--font-mono);
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Interactive Code & Playground Showcases */
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: stretch;
+      margin-bottom: 6rem;
+    }
+
+    @media (max-width: 960px) {
+      .showcase-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .terminal-window {
+      background: #0b1120;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.85rem;
+      overflow: hidden;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .terminal-header {
+      background: #070d18;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .dot {
+      width: 0.7rem;
+      height: 0.7rem;
+      border-radius: 50%;
+    }
+
+    .dot-red { background: #ef4444; }
+    .dot-yellow { background: #f59e0b; }
+    .dot-green { background: #10b981; }
+
+    .terminal-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-dim);
+    }
+
+    .tab-bar {
+      display: flex;
+      background: #080e1a;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      padding: 0.6rem 1.1rem;
+      background: none;
+      border: none;
+      color: var(--text-dim);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      color: #818cf8;
+      border-bottom-color: #818cf8;
+      background: rgba(99, 102, 241, 0.05);
+    }
+
+    .code-body {
+      padding: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.825rem;
+      color: #cbd5e1;
+      overflow-x: auto;
+      flex: 1;
+      line-height: 1.6;
+    }
+
+    .token-keyword { color: #f43f5e; }
+    .token-string { color: #34d399; }
+    .token-property { color: #38bdf8; }
+    .token-number { color: #fbbf24; }
+    .token-comment { color: #64748b; font-style: italic; }
+
+    /* Interactive Live Sandbox */
+    .sandbox-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 0.85rem;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+    }
+
+    .sandbox-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .sandbox-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      font-size: 0.75rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 9999px;
+      font-weight: 600;
+    }
+
+    .inventory-matrix {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .sku-card {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s;
+    }
+
+    .sku-card.limiting {
+      border-color: rgba(245, 158, 11, 0.5);
+      background: rgba(245, 158, 11, 0.05);
+    }
+
+    .sku-card.bundle-output {
+      border-color: rgba(99, 102, 241, 0.6);
+      background: rgba(99, 102, 241, 0.1);
+    }
+
+    .sku-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sku-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent-cyan);
+    }
+
+    .sku-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .sku-stock {
+      text-align: right;
+    }
+
+    .stock-qty {
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .stock-badge {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    .sandbox-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .live-log {
+      background: #050811;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      height: 85px;
+      overflow-y: auto;
+      color: #94a3b8;
+    }
+
+    .log-entry {
+      margin-bottom: 0.25rem;
+    }
+
+    .log-entry.success { color: #34d399; }
+    .log-entry.warn { color: #fbbf24; }
+    .log-entry.info { color: #818cf8; }
+
+    /* Section Headers */
+    .section {
+      padding: 5rem 0;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .section-eyebrow {
+      text-transform: uppercase;
+      font-size: 0.785rem;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+
+    .section-title {
+      font-size: 2.35rem;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 1rem;
+    }
+
+    .section-desc {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 0.85rem;
+      padding: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px -10px rgba(99, 102, 241, 0.15);
+    }
+
+    .feature-icon {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      color: #818cf8;
+    }
+
+    .feature-icon.cyan {
+      background: rgba(6, 182, 212, 0.12);
+      border-color: rgba(6, 182, 212, 0.25);
+      color: #06b6d4;
+    }
+
+    .feature-icon.emerald {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.25);
+      color: #10b981;
+    }
+
+    .feature-icon.amber {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.25);
+      color: #f59e0b;
+    }
+
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.65rem;
+    }
+
+    .feature-text {
+      color: var(--text-muted);
+      font-size: 0.925rem;
+      line-height: 1.55;
+    }
+
+    /* Architecture Visual */
+    .arch-container {
+      background: #090e1a;
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2.5rem;
+      position: relative;
+    }
+
+    .arch-flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      align-items: center;
+      position: relative;
+    }
+
+    @media (max-width: 860px) {
+      .arch-flow {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .arch-node {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .arch-node.highlight {
+      border-color: rgba(99, 102, 241, 0.6);
+      box-shadow: 0 0 25px rgba(99, 102, 241, 0.2);
+    }
+
+    .arch-step-num {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent-cyan);
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .arch-node-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .arch-node-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Comparison Table */
+    .comparison-table-wrapper {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      overflow-x: auto;
+      backdrop-filter: blur(12px);
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.925rem;
+    }
+
+    .comparison-table th, 
+    .comparison-table td {
+      padding: 1.2rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comparison-table th {
+      background: rgba(15, 23, 42, 0.95);
+      color: var(--text-muted);
+      font-size: 0.825rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .comparison-table th.col-highlight {
+      color: #a5b4fc;
+      background: rgba(99, 102, 241, 0.1);
+      border-bottom: 2px solid #6366f1;
+    }
+
+    .comparison-table td.col-highlight {
+      background: rgba(99, 102, 241, 0.04);
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .check-yes {
+      color: #10b981;
+      font-weight: 700;
+    }
+
+    .check-no {
+      color: #64748b;
+    }
+
+    /* Pricing / Cloud Tiers */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      align-items: stretch;
+    }
+
+    .price-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 2.25rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .price-card.featured {
+      border-color: rgba(99, 102, 241, 0.6);
+      background: linear-gradient(180deg, rgba(99, 102, 241, 0.08) 0%, rgba(15, 23, 42, 0.8) 100%);
+      box-shadow: 0 10px 40px -10px rgba(99, 102, 241, 0.25);
+    }
+
+    .price-tier-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-tier-desc {
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .price-amount {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #fff;
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: baseline;
+      gap: 0.35rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .price-period {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      font-family: var(--font-sans);
+    }
+
+    .price-features {
+      list-style: none;
+      margin-bottom: 2rem;
+      flex: 1;
+    }
+
+    .price-feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .price-feature-item svg {
+      color: #10b981;
+      flex-shrink: 0;
+    }
+
+    /* Waitlist / Early Access Modal & Banner */
+    .early-access-box {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(6, 182, 212, 0.1) 100%);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 1.25rem;
+      padding: 3.5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-top: 3rem;
+    }
+
+    .form-group {
+      display: flex;
+      max-width: 520px;
+      margin: 1.75rem auto 1rem;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .input-field {
+      flex: 1;
+      min-width: 260px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 0.75rem 1.2rem;
+      color: #fff;
+      font-size: 0.95rem;
+      font-family: var(--font-sans);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .input-field:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.25);
+    }
+
+    .key-gen-result {
+      display: none;
+      margin-top: 1.5rem;
+      background: #080d1a;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 0.65rem;
+      padding: 1rem 1.25rem;
+      max-width: 600px;
+      margin-inline: auto;
+      text-align: left;
+    }
+
+    .key-token-display {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #34d399;
+      word-break: break-all;
+      background: #040710;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.4rem;
+      margin-top: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      background: #060912;
+      padding: 4rem 0 2.5rem;
+      color: var(--text-dim);
+      font-size: 0.875rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .footer-col h4 {
+      color: var(--text-main);
+      font-size: 0.925rem;
+      margin-bottom: 1.2rem;
+      font-weight: 700;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.65rem;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="container nav-wrapper">
+      <a href="#" class="logo-group">
+        <div class="logo-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+        </div>
+        <span class="logo-text">InventoryIQ<span class="logo-highlight">247</span></span>
+        <span class="nav-badge">Beta v0.9</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#features" class="nav-link">Capabilities</a></li>
+        <li><a href="#playground" class="nav-link">Live Playground</a></li>
+        <li><a href="#architecture" class="nav-link">Architecture</a></li>
+        <li><a href="#comparison" class="nav-link">Hosted vs OSS</a></li>
+        <li><a href="#pricing" class="nav-link">Cloud Pricing</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="https://github.com/inventoryiq/InventoryIQ247" target="_blank" class="btn btn-secondary btn-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          Star on GitHub
+        </a>
+        <a href="#early-access" class="btn btn-primary btn-sm btn-glow">Request Cloud Key</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span>
+        <span>Hosted Developer Platform • Early Private Beta</span>
+      </div>
+
+      <h1 class="hero-title">
+        The Developer-First <span class="text-accent-gradient">Inventory Engine</span>.<br>
+        <span class="text-gradient">Self-Host or Run 24/7 in the Cloud.</span>
+      </h1>
+
+      <p class="hero-desc">
+        End overselling, deadlock bugs, and broken multi-SKU bundle kits. InventoryIQ247 provides sub-millisecond atomic inventory primitives, dynamic BOM calculation, and real-time webhook streams out of the box.
+      </p>
+
+      <div class="hero-ctas">
+        <a href="#early-access" class="btn btn-primary btn-glow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          Join Hosted Cloud Beta
+        </a>
+        <a href="#playground" class="btn btn-secondary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polygon points="10 8 16 12 10 16 10 8"></polygon>
+          </svg>
+          Try Live Sandbox
+        </a>
+      </div>
+
+      <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
+        <div class="quick-snippet">
+          <span style="color: #64748b;">$</span>
+          <span>curl -s https://api.inventoryiq247.io/v1/health | jq</span>
+          <button class="copy-btn" onclick="copySnippet('curl -s https://api.inventoryiq247.io/v1/health | jq')" title="Copy snippet">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Trust Metrics -->
+      <div class="stat-strip">
+        <div class="stat-item">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">Atomic Concurrency Safety</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">&lt; 12ms</div>
+          <div class="stat-label">Hosted Edge P99 Latency</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">24/7/365</div>
+          <div class="stat-label">Real-time Webhook Stream</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">Apache 2.0</div>
+          <div class="stat-label">Permissive Open Source Core</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Sandbox & Code Preview -->
+  <section id="playground" class="section" style="padding-top: 1rem;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Interactive Engine</span>
+        <h2 class="section-title">See Dynamic Bundles & Atomic Safety in Action</h2>
+        <p class="section-desc">
+          Test real-time bundle calculation directly in this browser simulation. When component stock decrements, the maximum assembleable bundle quantity updates instantaneously.
+        </p>
+      </div>
+
+      <div class="showcase-grid">
+        <!-- Live Sandbox Simulator -->
+        <div class="sandbox-card">
+          <div>
+            <div class="sandbox-title">
+              <h3 style="font-size: 1.15rem; font-weight: 700;">Live Bundle Engine: "Streamer Pro Kit"</h3>
+              <span class="sandbox-badge">
+                <span class="pulse-dot" style="width: 6px; height: 6px;"></span>
+                Reactive Engine
+              </span>
+            </div>
+
+            <div class="inventory-matrix">
+              <!-- Component 1 -->
+              <div class="sku-card" id="card-mic">
+                <div class="sku-info">
+                  <span class="sku-tag">SKU-MIC-CARDIOID</span>
+                  <span class="sku-name">Cardioid Studio Mic</span>
+                </div>
+                <div class="sku-stock">
+                  <div class="stock-qty" id="stock-mic">45</div>
+                  <span class="stock-badge">1 required / bundle</span>
+                </div>
+              </div>
+
+              <!-- Component 2 (Limiter) -->
+              <div class="sku-card limiting" id="card-stand">
+                <div class="sku-info">
+                  <span class="sku-tag" style="color: var(--accent-amber);">SKU-MIC-STAND-DESK (Limiter)</span>
+                  <span class="sku-name">Articulated Desk Boom</span>
+                </div>
+                <div class="sku-stock">
+                  <div class="stock-qty" id="stock-stand" style="color: #fbbf24;">14</div>
+                  <span class="stock-badge">1 required / bundle</span>
+                </div>
+              </div>
+
+              <!-- Component 3 -->
+              <div class="sku-card" id="card-cable">
+                <div class="sku-info">
+                  <span class="sku-tag">SKU-CABLE-XLR-3M</span>
+                  <span class="sku-name">Gold-plated 3M XLR</span>
+                </div>
+                <div class="sku-stock">
+                  <div class="stock-qty" id="stock-cable">60</div>
+                  <span class="stock-badge">2 required / bundle</span>
+                </div>
+              </div>
+
+              <!-- Output Bundle -->
+              <div class="sku-card bundle-output">
+                <div class="sku-info">
+                  <span class="sku-tag" style="color: #a5b4fc;">KIT-STREAMER-DELUXE</span>
+                  <span class="sku-name" style="color: #818cf8; font-size: 1rem;">Assembleable Stock</span>
+                </div>
+                <div class="sku-stock">
+                  <div class="stock-qty" id="stock-bundle" style="font-size: 1.6rem; color: #a5b4fc;">14</div>
+                  <span class="stock-badge" id="bundle-limiting-text">Bound by Boom Arm</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="sandbox-actions">
+              <button class="btn btn-primary btn-sm" onclick="simulateSale(1)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Sell 1 Bundle (Atomic Lock)
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="restockLimiter(10)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                </svg>
+                Restock Boom Arm (+10)
+              </button>
+            </div>
+
+            <div class="live-log" id="sandbox-logs">
+              <div class="log-entry info">[SYSTEM] Engine initialized. Atomic snapshot verified.</div>
+              <div class="log-entry success">[CALC] KIT-STREAMER-DELUXE availability evaluated: 14 units.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Terminal & Multi-language Code Tabs -->
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <div class="dot dot-red"></div>
+              <div class="dot dot-yellow"></div>
+              <div class="dot dot-green"></div>
+            </div>
+            <div class="terminal-title">api.inventoryiq247.io/v1/stock/movements</div>
+            <button class="copy-btn" onclick="copyCurrentCode()" title="Copy active code snippet">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+          </div>
+
+          <div class="tab-bar">
+            <button class="tab-btn active" onclick="switchTab('curl')">cURL</button>
+            <button class="tab-btn" onclick="switchTab('node')">Node.js (TypeScript)</button>
+            <button class="tab-btn" onclick="switchTab('python')">Python</button>
+            <button class="tab-btn" onclick="switchTab('java')">Java (Spring Boot)</button>
+          </div>
+
+          <div class="code-body" id="code-content">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Platform Capabilities -->
+  <section id="features" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Enterprise Primitives</span>
+        <h2 class="section-title">Built for Mission-Critical Supply Chains</h2>
+        <p class="section-desc">
+          Everything developers need to build high-scale e-commerce, warehousing, and multi-location inventory backends with zero operational debt.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Atomic Concurrency & Row Locks</h3>
+          <p class="feature-text">
+            Guaranteed zero overselling during flash sales. Two concurrent checkout processes attempting to reserve the last unit will resolve deterministically without deadlocks or stock divergence.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon cyan">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <h3 class="feature-title">Dynamic BOM & Bundle Resolver</h3>
+          <p class="feature-text">
+            Build multi-tiered product bundles and kits without maintaining phantom inventory counts. Available kit stock is derived in microseconds from live component stock ratios.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon emerald">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">24/7 Outbound Webhook Streams</h3>
+          <p class="feature-text">
+            Deliver low-latency inventory state deltas to Shopify, Stripe, ERPs, and custom microservices. Includes automatic retry mechanisms, signed payloads, and dead-letter queues.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon amber">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <h3 class="feature-title">Immutable Audit Trail</h3>
+          <p class="feature-text">
+            Every increase, deduction, write-off, and cycle count records user identities, order IDs, timestamps, and reason codes into a tamper-evident audit ledger.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </div>
+          <h3 class="feature-title">Streaming Bulk CSV/Excel Ingestion</h3>
+          <p class="feature-text">
+            Seamlessly upload catalogues with tens of thousands of SKUs via high-throughput Apache POI streaming parsers. Zero memory spikes and line-by-line validation diagnostics.
+          </p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon cyan">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Global Hosted Cloud Edge</h3>
+          <p class="feature-text">
+            Route incoming requests to the nearest edge node. Our hosted cloud handles multi-tenant PostgreSQL clustering, backup replication, and zero-downtime database upgrades.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture Flow -->
+  <section id="architecture" class="section" style="background: rgba(11, 17, 32, 0.4);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Under The Hood</span>
+        <h2 class="section-title">Engine Architecture & Data Pipeline</h2>
+        <p class="section-desc">
+          How InventoryIQ247 processes concurrent requests with transactional consistency.
+        </p>
+      </div>
+
+      <div class="arch-container">
+        <div class="arch-flow">
+          <div class="arch-node">
+            <span class="arch-step-num">STEP 01</span>
+            <h4 class="arch-node-title">Client / Storefront</h4>
+            <p class="arch-node-desc">Shopify, Stripe webhook, POS scanner, or developer API call</p>
+          </div>
+
+          <div class="arch-node highlight">
+            <span class="arch-step-num">STEP 02</span>
+            <h4 class="arch-node-title">InventoryIQ247 Gateway</h4>
+            <p class="arch-node-desc">Auth validation, rate limits, schema verification & edge caching</p>
+          </div>
+
+          <div class="arch-node highlight">
+            <span class="arch-step-num">STEP 03</span>
+            <h4 class="arch-node-title">Atomic Engine</h4>
+            <p class="arch-node-desc">Row-level reservation, BOM component lock & audit logging</p>
+          </div>
+
+          <div class="arch-node">
+            <span class="arch-step-num">STEP 04</span>
+            <h4 class="arch-node-title">24/7 Event Fanout</h4>
+            <p class="arch-node-desc">Webhooks, Kafka topic broadcast, and ERP stock sync</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison: Hosted Platform vs OSS vs Custom ERP -->
+  <section id="comparison" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Comparison Matrix</span>
+        <h2 class="section-title">Why Developers Choose InventoryIQ247</h2>
+        <p class="section-desc">
+          Compare building from scratch, running legacy ERPs, and adopting our developer-first platform.
+        </p>
+      </div>
+
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+          <thead>
+            <tr>
+              <th>Capability</th>
+              <th class="col-highlight">InventoryIQ247 Cloud</th>
+              <th>InventoryIQ247 OSS Core</th>
+              <th>Legacy ERPs (SAP / NetSuite)</th>
+              <th>Custom In-House SQL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Setup Time</strong></td>
+              <td class="col-highlight">&lt; 60 seconds (API Key)</td>
+              <td>10 minutes (Maven / Java 21)</td>
+              <td>6 - 18 months consulting</td>
+              <td>Weeks to months</td>
+            </tr>
+            <tr>
+              <td><strong>Atomic Concurrency Guarantee</strong></td>
+              <td class="col-highlight"><span class="check-yes">✓ Native (Zero Race Conditions)</span></td>
+              <td><span class="check-yes">✓ Native (Spring Data JPA)</span></td>
+              <td>Varies / Heavy locking overhead</td>
+              <td><span class="check-no">✕ Frequent deadlock bugs</span></td>
+            </tr>
+            <tr>
+              <td><strong>Dynamic Bundling & BOM</strong></td>
+              <td class="col-highlight"><span class="check-yes">✓ Microsecond Resolution</span></td>
+              <td><span class="check-yes">✓ Full Bundle Primitives</span></td>
+              <td>Complex custom configuration</td>
+              <td><span class="check-no">✕ Hardcoded scripts</span></td>
+            </tr>
+            <tr>
+              <td><strong>Managed Cloud Infrastructure</strong></td>
+              <td class="col-highlight"><span class="check-yes">✓ Serverless Zero-Ops</span></td>
+              <td><span class="check-no">✕ Self-managed</span></td>
+              <td>Expensive private hosting</td>
+              <td><span class="check-no">✕ Self-managed</span></td>
+            </tr>
+            <tr>
+              <td><strong>24/7 Webhooks & Event Streams</strong></td>
+              <td class="col-highlight"><span class="check-yes">✓ Built-in with DLQ & Retry</span></td>
+              <td>Event listener extensions</td>
+              <td>Requires expensive add-ons</td>
+              <td><span class="check-no">✕ Custom build needed</span></td>
+            </tr>
+            <tr>
+              <td><strong>Developer Experience</strong></td>
+              <td class="col-highlight">Modern REST, OpenAPI 3.1 & SDKs</td>
+              <td>Java 21, Spring Boot 3 API</td>
+              <td>SOAP, cryptic XML, slow responses</td>
+              <td>Fragile internal endpoints</td>
+            </tr>
+            <tr>
+              <td><strong>Pricing / Licensing</strong></td>
+              <td class="col-highlight">Free Beta / Usage-based</td>
+              <td>100% Free (Apache 2.0)</td>
+              <td>$50,000+ / year per seat</td>
+              <td>Developer engineering salary</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cloud Pricing Tiers -->
+  <section id="pricing" class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-eyebrow">Predictable Pricing</span>
+        <h2 class="section-title">Start Free, Scale as Inventory Grows</h2>
+        <p class="section-desc">
+          Enjoy generous free tiers during our developer platform beta, or self-host our open-source core without paying a cent.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Tier 1: OSS -->
+        <div class="price-card">
+          <div class="price-tier-name">Open-Source Core</div>
+          <p class="price-tier-desc">For indie hackers and developers self-hosting on local servers or internal Docker nodes.</p>
+          <div class="price-amount">$0 <span class="price-period">forever</span></div>
+          <ul class="price-features">
+            <li class="price-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Complete Spring Boot 3 + Java 21 engine
+            </li>
+            <li class="price-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Lightweight H2 & PostgreSQL JPA support
+            </li>
+            <li class="price-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Dynamic bundle & kit calculations
+            </li>
+            <li class="price-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Desktop JavaFX Admin Application
+            </li>
+            <li class="price-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Permissive Apache 2.0 license
+            </li>
+          </ul>
+          <a href="https://github.com/inventoryiq/InventoryIQ247" target="_blank" class="btn btn-secondary">Get Open Source</a>
+        </div>
+
+        <!-- Tier 2: Developer Cloud (Featured) -->
+        <div class="price-card featured">
+          <div style="position: absolute; top: -12px; right: 24px; background: #6366f1; color: #fff; font-size: 0.725rem; font-weight: 700; padding: 0.2rem 0.65rem; border-radius: 9999px; text-transform: uppercase;">
+            Beta Access
+          </div>
+          <div class="price-tier-name">Hosted Cloud (Beta)</div>
+          <p class="price-tier-desc">Fully-managed serverless developer tier with automated backups, edge endpoints, and webhooks.</p>
+          <div class="price-amount">$0 <span class="price-period">during beta</span></div>
+          <ul class="price-features">
+            <li class="price-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              50,000 atomic stock operations/mo
+            </li>
+            <li class="price-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Global edge endpoints (&lt;20ms latency)
+            </li>
+            <li class="price-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              24/7 Outbound webhooks with auto-retry
+            </li>
+            <li class="price-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Team API keys & role-based access
+            </li>
+            <li class="price-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              90-day immutable audit movement retention
+            </li>
+          </ul>
+          <a href="#early-access" class="btn btn-primary btn-glow">Request Cloud API Key</a>
+        </div>
+
+        <!-- Tier 3: Enterprise Scale -->
+        <div class="price-card">
+          <div class="price-tier-name">Growth & Enterprise</div>
+          <p class="price-tier-desc">For high-volume merchants, global distribution networks, and mission-critical 3PL logistics.</p>
+          <div class="price-amount">Custom <span class="price-period">monthly</span></div>
+          <ul class="price-features">
+            <li class="price-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Unlimited operations with dedicated DB clusters
+            </li>
+            <li class="price-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Multi-region active-active replication
+            </li>
+            <li class="price-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Custom warehouse routing algorithms
+            </li>
+            <li class="price-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              99.99% SLA uptime guarantee
+            </li>
+            <li class="price-feature-item">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              24/7 dedicated engineering Slack channel
+            </li>
+          </ul>
+          <a href="#early-access" class="btn btn-secondary">Contact Team</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Waitlist & API Key Generator -->
+  <section id="early-access" class="section">
+    <div class="container">
+      <div class="early-access-box">
+        <span class="section-eyebrow" style="color: #a5b4fc;">Early Developer Preview</span>
+        <h2 style="font-size: 2.4rem; font-weight: 800; margin-bottom: 0.75rem;">Get Instant Hosted Cloud Sandbox Access</h2>
+        <p style="color: var(--text-muted); max-width: 580px; margin: 0 auto; font-size: 1rem;">
+          Generate a sandbox API token today to test InventoryIQ247 endpoints against our hosted staging cluster.
+        </p>
+
+        <form id="key-form" onsubmit="generateApiKey(event)">
+          <div class="form-group">
+            <input type="email" id="dev-email" class="input-field" placeholder="developer@company.com" required>
+            <button type="submit" class="btn btn-primary btn-glow" style="min-width: 170px;">
+              Generate API Key
+            </button>
+          </div>
+          <span style="font-size: 0.8rem; color: var(--text-dim);">No credit card required. Instant preview sandbox.</span>
+        </form>
+
+        <div id="key-result" class="key-gen-result">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <span style="color: #34d399; font-weight: 700; font-size: 0.85rem;">✓ Sandbox Key Provisioned</span>
+            <span style="color: #94a3b8; font-size: 0.75rem;">Region: us-east (Edge)</span>
+          </div>
+          <div class="key-token-display">
+            <span id="token-string">iiq_test_88f9a2e47c09d841b</span>
+            <button class="copy-btn" onclick="copyToken()" title="Copy API Key">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+          </div>
+          <p style="font-size: 0.78rem; color: #94a3b8; margin-top: 0.65rem;">
+            Test endpoint: <code style="color: #a5b4fc;">https://sandbox.inventoryiq247.io/v1/stock/products</code>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo-group" style="margin-bottom: 1rem;">
+            <div class="logo-icon" style="width: 1.8rem; height: 1.8rem;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              </svg>
+            </div>
+            <span class="logo-text" style="font-size: 1.15rem;">InventoryIQ<span class="logo-highlight">247</span></span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.875rem; max-width: 320px; line-height: 1.55;">
+            The developer-first inventory management platform. Atomic stock operations, dynamic kit assemblies, and real-time event streams.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul class="footer-links">
+            <li><a href="#features">Atomic Concurrency</a></li>
+            <li><a href="#features">Dynamic Bundling</a></li>
+            <li><a href="#features">24/7 Webhooks</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+            <li><a href="#comparison">Hosted vs OSS</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Developers</h4>
+          <ul class="footer-links">
+            <li><a href="https://github.com/inventoryiq/InventoryIQ247" target="_blank">GitHub Repository</a></li>
+            <li><a href="#playground">Interactive Sandbox</a></li>
+            <li><a href="#early-access">Sandbox API Key</a></li>
+            <li><a href="https://spring.io/projects/spring-boot" target="_blank">Spring Boot 3 Core</a></li>
+            <li><a href="#">OpenAPI Specification</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Community</h4>
+          <ul class="footer-links">
+            <li><a href="https://github.com/inventoryiq/InventoryIQ247/issues" target="_blank">Issue Tracker</a></li>
+            <li><a href="https://github.com/inventoryiq/InventoryIQ247/blob/main/LICENSE" target="_blank">Apache 2.0 License</a></li>
+            <li><a href="#early-access">Hosted Cloud Waitlist</a></li>
+            <li><a href="#">Discord Server (Soon)</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 InventoryIQ247 Project. Released under the Apache 2.0 License.
+        </div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="https://github.com/inventoryiq/InventoryIQ247" target="_blank" style="color: var(--text-dim); text-decoration: none;">GitHub</a>
+          <a href="#" style="color: var(--text-dim); text-decoration: none;">Privacy</a>
+          <a href="#" style="color: var(--text-dim); text-decoration: none;">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Code snippet data
+    const snippets = {
+      curl: `curl -X POST https://api.inventoryiq247.io/v1/stock/movements \\
+  -H "Authorization: Bearer iiq_live_98f4b107c" \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "sku": "KIT-STREAMER-DELUXE",
+    "quantity": 1,
+    "type": "OUT",
+    "reference": "ORDER-98231",
+    "reason": "Fulfilled via Shopify Storefront"
+  }'
+
+# Response (200 OK)
+# {
+#   "status": "COMMITTED",
+#   "movementId": "mov_9921b7",
+#   "atomicLockDurationMs": 1.4,
+#   "remainingBundleAvailable": 13
+# }`,
+
+      node: `import { InventoryIQ247 } from '@inventoryiq247/sdk';
+
+const client = new InventoryIQ247({
+  apiKey: process.env.IIQ_API_KEY
+});
+
+// Atomic decrement with automatic bundle resolution
+const movement = await client.stock.recordMovement({
+  sku: 'KIT-STREAMER-DELUXE',
+  quantity: 1,
+  type: 'OUT',
+  reference: 'ORDER-98231',
+  reason: 'Checkout completed'
+});
+
+console.log(\`Stock updated atomically in \${movement.atomicLockDurationMs}ms\`);
+console.log(\`Remaining bundle availability: \${movement.remainingBundleAvailable}\`);`,
+
+      python: `from inventoryiq247 import InventoryIQ247
+
+client = InventoryIQ247(api_key="iiq_live_98f4b107c")
+
+# Atomic movement with optimistic locking
+movement = client.stock.create_movement(
+    sku="KIT-STREAMER-DELUXE",
+    quantity=1,
+    movement_type="OUT",
+    reference="ORDER-98231",
+    reason="Fulfilled via Stripe webhook"
+)
+
+print(f"Transaction ID: {movement.id}")
+print(f"Available bundle stock: {movement.available_stock}")`,
+
+      java: `// InventoryIQ247 Spring Boot Core Service
+@Service
+@RequiredArgsConstructor
+public class InventoryOrderService {
+    private final InventoryService inventoryService;
+
+    @Transactional
+    public StockMovement fulfillBundle(String bundleSku, int quantity, String orderRef) {
+        // Enforces atomic stock reservations & validates BOM component bounds
+        return inventoryService.recordMovement(
+            bundleSku,
+            quantity,
+            MovementType.OUT,
+            orderRef,
+            "Fulfilled via Checkout Engine"
+        );
+    }
+}`
+    };
+
+    let activeTab = 'curl';
+
+    function renderCode() {
+      const codeContainer = document.getElementById('code-content');
+      const raw = snippets[activeTab];
+      
+      // Basic syntax highlighter formatting for preview
+      const formatted = raw
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+      codeContainer.innerHTML = `<pre style="margin:0; font-family:inherit;"><code>${formatted}</code></pre>`;
+    }
+
+    function switchTab(lang) {
+      activeTab = lang;
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.toLowerCase().includes(lang));
+      });
+      renderCode();
+    }
+
+    function copySnippet(text) {
+      navigator.clipboard.writeText(text);
+      alert('Copied quickstart command to clipboard!');
+    }
+
+    function copyCurrentCode() {
+      navigator.clipboard.writeText(snippets[activeTab]);
+      alert('Copied ' + activeTab.toUpperCase() + ' snippet to clipboard!');
+    }
+
+    // Interactive Sandbox Engine Simulation
+    const state = {
+      mic: 45,
+      stand: 14,
+      cable: 60
+    };
+
+    function recalculateBundle() {
+      // Streamer kit needs: 1 mic, 1 stand, 2 cables
+      const bundlesByMic = Math.floor(state.mic / 1);
+      const bundlesByStand = Math.floor(state.stand / 1);
+      const bundlesByCable = Math.floor(state.cable / 2);
+
+      const maxBundles = Math.min(bundlesByMic, bundlesByStand, bundlesByCable);
+
+      document.getElementById('stock-mic').innerText = state.mic;
+      document.getElementById('stock-stand').innerText = state.stand;
+      document.getElementById('stock-cable').innerText = state.cable;
+      document.getElementById('stock-bundle').innerText = maxBundles;
+
+      // Identify limiting component
+      const cardMic = document.getElementById('card-mic');
+      const cardStand = document.getElementById('card-stand');
+      const cardCable = document.getElementById('card-cable');
+      const limitingText = document.getElementById('bundle-limiting-text');
+
+      cardMic.classList.remove('limiting');
+      cardStand.classList.remove('limiting');
+      cardCable.classList.remove('limiting');
+
+      if (maxBundles === bundlesByStand) {
+        cardStand.classList.add('limiting');
+        limitingText.innerText = 'Bound by Boom Arm (' + state.stand + ')';
+      } else if (maxBundles === bundlesByCable) {
+        cardCable.classList.add('limiting');
+        limitingText.innerText = 'Bound by XLR Cables (' + Math.floor(state.cable / 2) + ')';
+      } else {
+        cardMic.classList.add('limiting');
+        limitingText.innerText = 'Bound by Microphones (' + state.mic + ')';
+      }
+
+      return maxBundles;
+    }
+
+    function addLog(text, type = 'info') {
+      const logs = document.getElementById('sandbox-logs');
+      const time = new Date().toTimeString().split(' ')[0];
+      const entry = document.createElement('div');
+      entry.className = `log-entry ${type}`;
+      entry.innerText = `[${time}] ${text}`;
+      logs.prepend(entry);
+    }
+
+    function simulateSale(qty) {
+      const available = recalculateBundle();
+      if (available < qty) {
+        addLog(`[REJECTED] Insufficient stock! Requested ${qty}, available ${available}`, 'warn');
+        return;
+      }
+
+      // Atomic deduction
+      state.mic -= 1 * qty;
+      state.stand -= 1 * qty;
+      state.cable -= 2 * qty;
+
+      const remaining = recalculateBundle();
+      addLog(`[COMMIT] Sold ${qty} kit. Atomic lock duration 1.1ms. Remaining kits: ${remaining}`, 'success');
+    }
+
+    function restockLimiter(qty) {
+      state.stand += qty;
+      const newTotal = recalculateBundle();
+      addLog(`[RESTOCK] Received shipment: +${qty} Boom Arms. Available kits now: ${newTotal}`, 'info');
+    }
+
+    // Early Access API Key Generator
+    function generateApiKey(e) {
+      e.preventDefault();
+      const email = document.getElementById('dev-email').value;
+      if (!email) return;
+
+      const randomHex = Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10);
+      const generatedKey = `iiq_test_${randomHex}`;
+
+      document.getElementById('token-string').innerText = generatedKey;
+      document.getElementById('key-result').style.display = 'block';
+      addLog(`[CLOUD_AUTH] Sandbox API token provisioned for ${email}`, 'success');
+    }
+
+    function copyToken() {
+      const token = document.getElementById('token-string').innerText;
+      navigator.clipboard.writeText(token);
+      alert('Copied sandbox API key to clipboard: ' + token);
+    }
+
+    // Initialize
+    renderCode();
+    recalculateBundle();
+  </script>
+</body>
+</html>
