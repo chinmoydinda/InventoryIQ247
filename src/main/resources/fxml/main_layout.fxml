@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventory.ui.controller.MainController">
+    <left>
+        <VBox spacing="5" styleClass="sidebar" prefWidth="260">
+            <padding>
+                <Insets top="30" right="0" bottom="30" left="0"/>
+            </padding>
+            <HBox alignment="CENTER" style="-fx-padding: 0 0 30 0;">
+                 <Label text="⚡ INVENTORY" style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: 900;"/>
+            </HBox>
+            <Button fx:id="navDashboardBtn" text="📊  Dashboard" styleClass="sidebar-button" maxWidth="Infinity"/>
+            <Button fx:id="navProductsBtn" text="📦  Products Database" styleClass="sidebar-button" maxWidth="Infinity"/>
+            <Button fx:id="navBundlesBtn" text="🎁  Bundle Management" styleClass="sidebar-button" maxWidth="Infinity"/>
+            <Button fx:id="navAuditBtn" text="📜  Audit Ledger" styleClass="sidebar-button" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+    <center>
+        <StackPane fx:id="contentArea" styleClass="background-pane"/>
+    </center>
+</BorderPane>

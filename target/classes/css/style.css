@@ -1,0 +1,47 @@
+.sidebar {
+    -fx-background-color: linear-gradient(to bottom, #1e1e2d, #2b2b40);
+}
+.sidebar-button {
+    -fx-text-fill: #a2a3b7;
+    -fx-background-color: transparent;
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-alignment: center-left;
+    -fx-padding: 15 20 15 20;
+    -fx-cursor: hand;
+    -fx-font-smoothing-type: gray;
+}
+.sidebar-button:hover {
+    -fx-background-color: #2b2b3c;
+    -fx-text-fill: #ffffff;
+}
+.sidebar-button-active {
+    -fx-background-color: #3699ff;
+    -fx-text-fill: #ffffff;
+}
+.card {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 4);
+    -fx-padding: 25;
+}
+.page-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: 800;
+    -fx-text-fill: #181c32;
+    -fx-font-smoothing-type: gray;
+}
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #3f4254;
+    -fx-font-smoothing-type: gray;
+}
+.background-pane {
+    -fx-background-color: #f3f6f9;
+}
+.text-muted {
+    -fx-text-fill: #7e8299;
+    -fx-font-weight: bold;
+}
