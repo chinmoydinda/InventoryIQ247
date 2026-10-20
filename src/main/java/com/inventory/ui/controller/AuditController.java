@@ -39,6 +39,12 @@ public class AuditController {
 
     @FXML
     public void initialize() {
+        auditTable.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) { loadData(); }
+        });
+        auditTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
+        auditTable.setPlaceholder(new javafx.scene.control.Label("No stock movements recorded yet."));
+
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colProductId.setCellValueFactory(new PropertyValueFactory<>("productId"));
         colType.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMovementType().name()));

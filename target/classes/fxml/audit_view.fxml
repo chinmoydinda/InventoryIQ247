@@ -2,28 +2,29 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-
-<VBox spacing="20" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventory.ui.controller.AuditController" styleClass="background-pane">
-    <padding>
-        <Insets top="30" right="40" bottom="40" left="40"/>
-    </padding>
-
-    <VBox spacing="15" styleClass="card" VBox.vgrow="ALWAYS">
-        <HBox alignment="CENTER_LEFT">
-             <Label text="Global Audit Ledger" styleClass="page-title" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-             <Button fx:id="refreshBtn" text="Refresh Ledger" styleClass="accent"/>
-        </HBox>
-        <Separator/>
-        <TableView fx:id="auditTable" VBox.vgrow="ALWAYS">
-            <columns>
-                <TableColumn fx:id="colId" text="Record ID" prefWidth="80"/>
-                <TableColumn fx:id="colProductId" text="Product ID" prefWidth="80"/>
-                <TableColumn fx:id="colType" text="Movement Type" prefWidth="180"/>
-                <TableColumn fx:id="colDelta" text="Qty Change" prefWidth="100"/>
-                <TableColumn fx:id="colBalance" text="New Balance" prefWidth="100"/>
-                <TableColumn fx:id="colNote" text="Reference Note" prefWidth="250"/>
-                <TableColumn fx:id="colDate" text="Timestamp" prefWidth="180"/>
-            </columns>
-        </TableView>
+<VBox xmlns:fx="http://javafx.com/fxml/1" spacing="22" styleClass="page" fx:controller="com.inventory.ui.controller.AuditController">
+    <VBox spacing="6">
+        <Label text="Stock activity" styleClass="page-title" wrapText="true" />
+        <Label text="A complete record of inventory movements and adjustments." styleClass="page-subtitle" wrapText="true" />
+    </VBox>
+    <VBox spacing="20" styleClass="background-pane" VBox.vgrow="ALWAYS" minHeight="0">
+        <VBox spacing="15" styleClass="card" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT">
+                <Label text="Movement history" styleClass="section-title" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                <Button fx:id="refreshBtn" text="Refresh Ledger" styleClass="accent" />
+            </HBox>
+            <Separator />
+            <TableView fx:id="auditTable" VBox.vgrow="ALWAYS" minHeight="120">
+                <columns>
+                    <TableColumn fx:id="colId" text="Record ID" prefWidth="80" />
+                    <TableColumn fx:id="colProductId" text="Product ID" prefWidth="80" />
+                    <TableColumn fx:id="colType" text="Movement Type" prefWidth="180" />
+                    <TableColumn fx:id="colDelta" text="Qty Change" prefWidth="100" />
+                    <TableColumn fx:id="colBalance" text="New Balance" prefWidth="100" />
+                    <TableColumn fx:id="colNote" text="Reference Note" prefWidth="250" />
+                    <TableColumn fx:id="colDate" text="Timestamp" prefWidth="180" />
+                </columns>
+            </TableView>
+        </VBox>
     </VBox>
 </VBox>

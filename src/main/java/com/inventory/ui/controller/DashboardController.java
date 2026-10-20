@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 @Component
 public class DashboardController {
     @FXML private Label totalProductsLabel;
+    @FXML private Label lowStockCountLabel;
     @FXML private Label totalBundlesLabel;
     @FXML private Label totalValueLabel;
     @FXML private Button refreshBtn;
@@ -39,6 +40,12 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
+        lowStockTable.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) { loadDashboardData(); }
+        });
+        lowStockTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
+        lowStockTable.setPlaceholder(new javafx.scene.control.Label("All stocked up. No products below 50 units."));
+
         colSku.setCellValueFactory(new PropertyValueFactory<>("sku"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colStock.setCellValueFactory(new PropertyValueFactory<>("currentStock"));
@@ -63,6 +70,7 @@ public class DashboardController {
                 .collect(Collectors.toList());
 
         Platform.runLater(() -> {
+            lowStockCountLabel.setText(lowStock.size() + " LOW STOCK");
             totalProductsLabel.setText(String.valueOf(totalProducts));
             totalBundlesLabel.setText(String.valueOf(totalBundles));
             totalValueLabel.setText(String.format("$%,.2f", totalValue));

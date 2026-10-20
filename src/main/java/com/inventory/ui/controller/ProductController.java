@@ -59,6 +59,15 @@ public class ProductController {
 
     @FXML
     public void initialize() {
+        productTable.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) { loadProducts(); }
+        });
+        productTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
+        productTable.setPlaceholder(new javafx.scene.control.Label("No products found. Add a product or change your search."));
+        deleteProductBtn.disableProperty().bind(productTable.getSelectionModel().selectedItemProperty().isNull());
+        addStockBtn.disableProperty().bind(productTable.getSelectionModel().selectedItemProperty().isNull());
+        removeStockBtn.disableProperty().bind(productTable.getSelectionModel().selectedItemProperty().isNull());
+
         uomComboBox.setItems(FXCollections.observableArrayList(UnitOfMeasure.values()));
         uomComboBox.getSelectionModel().selectFirst();
 
@@ -77,9 +86,7 @@ public class ProductController {
         uploadExcelBtn.setOnAction(e -> uploadExcel());
 
         productTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
-            if (newSel != null) {
-                adjustProductIdField.setText(String.valueOf(newSel.getId()));
-            }
+            adjustProductIdField.setText(newSel == null ? "" : String.valueOf(newSel.getId()));
         });
 
         addStockBtn.setOnAction(e -> adjustStock(true));
@@ -167,6 +174,7 @@ public class ProductController {
     private void adjustStock(boolean isAdding) {
         try {
             Long productId = Long.parseLong(adjustProductIdField.getText());
+            adjustQtySpinner.commitValue();
             int qty = adjustQtySpinner.getValue();
             
             if (qty <= 0) {

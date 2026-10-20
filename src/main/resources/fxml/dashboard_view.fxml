@@ -1,43 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-
-<VBox spacing="20" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventory.ui.controller.DashboardController" styleClass="background-pane">
-    <padding>
-        <Insets top="40" right="40" bottom="40" left="40"/>
-    </padding>
-
-    <Label text="Executive Dashboard" styleClass="page-title" style="-fx-font-size: 28px;"/>
-    
-    <HBox spacing="20">
-        <!-- Metric Cards -->
-        <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER" spacing="10">
-            <Label text="Total Products" styleClass="text-muted"/>
-            <Label fx:id="totalProductsLabel" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #3699ff;"/>
-        </VBox>
-        <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER" spacing="10">
-            <Label text="Total Bundles" styleClass="text-muted"/>
-            <Label fx:id="totalBundlesLabel" text="0" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #8950fc;"/>
-        </VBox>
-        <VBox styleClass="card" HBox.hgrow="ALWAYS" alignment="CENTER" spacing="10">
-            <Label text="Total Inventory Value" styleClass="text-muted"/>
-            <Label fx:id="totalValueLabel" text="\$0.00" style="-fx-font-size: 36px; -fx-font-weight: bold; -fx-text-fill: #1bc5bd;"/>
-        </VBox>
+<VBox spacing="24" styleClass="page" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventory.ui.controller.DashboardController">
+    <HBox alignment="CENTER_LEFT">
+        <VBox spacing="6"><Label text="Inventory overview" styleClass="page-title"/><Label text="A clear view of your catalog and what needs attention." styleClass="page-subtitle"/></VBox>
+        <Region HBox.hgrow="ALWAYS"/><Button fx:id="refreshBtn" text="Refresh overview"/>
     </HBox>
-    
-    <VBox spacing="15" styleClass="card" VBox.vgrow="ALWAYS">
-        <HBox alignment="CENTER_LEFT">
-             <Label text="Low Stock Alerts (Requires Restock)" styleClass="section-title" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-             <Button fx:id="refreshBtn" text="Refresh Data" styleClass="accent"/>
-        </HBox>
-        <Separator/>
-        <TableView fx:id="lowStockTable" VBox.vgrow="ALWAYS">
-            <columns>
-                <TableColumn fx:id="colSku" text="SKU" prefWidth="150"/>
-                <TableColumn fx:id="colName" text="Product Name" prefWidth="300"/>
-                <TableColumn fx:id="colStock" text="Current Stock" prefWidth="150"/>
-            </columns>
-        </TableView>
+    <HBox spacing="18">
+        <VBox styleClass="card" HBox.hgrow="ALWAYS" prefWidth="260" spacing="12"><Label text="TOTAL PRODUCTS" styleClass="metric-caption"/><Label fx:id="totalProductsLabel" text="—" styleClass="metric-value"/><Label text="Products in your catalog" styleClass="text-muted"/></VBox>
+        <VBox styleClass="card" HBox.hgrow="ALWAYS" prefWidth="260" spacing="12"><Label text="PRODUCT BUNDLES" styleClass="metric-caption"/><Label fx:id="totalBundlesLabel" text="—" styleClass="metric-value"/><Label text="Configured product kits" styleClass="text-muted"/></VBox>
+        <VBox styleClass="card, value-card" HBox.hgrow="ALWAYS" prefWidth="330" spacing="12"><Label text="INVENTORY VALUE" styleClass="metric-caption"/><Label fx:id="totalValueLabel" text="—" styleClass="metric-value"/><Label text="On-hand stock at cost price" styleClass="text-muted"/></VBox>
+    </HBox>
+    <VBox spacing="16" styleClass="card" VBox.vgrow="ALWAYS">
+        <HBox alignment="CENTER_LEFT"><VBox spacing="5"><Label text="Needs attention" styleClass="section-title"/><Label text="Products with fewer than 50 units on hand." styleClass="text-muted"/></VBox><Region HBox.hgrow="ALWAYS"/><Label fx:id="lowStockCountLabel" text="LOW STOCK" styleClass="warning-chip"/></HBox>
+        <TableView fx:id="lowStockTable" VBox.vgrow="ALWAYS" minHeight="180"><columns><TableColumn fx:id="colSku" text="SKU" prefWidth="180"/><TableColumn fx:id="colName" text="Product name" prefWidth="450"/><TableColumn fx:id="colStock" text="Available units" prefWidth="180"/></columns></TableView>
+        <Label text="Keep stock levels up to date from the Products workspace." styleClass="text-muted"/>
     </VBox>
 </VBox>

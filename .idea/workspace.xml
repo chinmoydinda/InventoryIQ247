@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="73718c38-0e6c-4ac7-9a00-39711ab72739" name="Changes" comment="created landing page">
+      <change beforePath="$PROJECT_DIR$/InventoryIQ247.iml" beforeDir="false" afterPath="$PROJECT_DIR$/InventoryIQ247.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/inventory/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/inventory/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/AuditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/AuditController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/BundleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/BundleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/DashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/audit_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/audit_view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/bundle_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/bundle_view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/dashboard_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/dashboard_view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/main_layout.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/main_layout.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/product_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/product_view.fxml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="57" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;chinmoydinda&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/chinmoydinda/InventoryIQ247.git&quot;,
+    &quot;accountId&quot;: &quot;c4f77f08-d228-4e07-ae9b-86a8a1ceb73f&quot;
+  }
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.3476238074220372" />
+      <entry key="MS500" value="3.1875161887860903" />
+      <entry key="S2" value="8.97645671632307" />
+      <entry key="S5" value="16.278536974528404" />
+      <entry key="S10" value="22.327153903777678" />
+      <entry key="S30" value="29.15294617621074" />
+      <entry key="S60" value="31.42674351646687" />
+      <entry key="M2" value="32.91512633107433" />
+      <entry key="M5" value="43.20233668921252" />
+      <entry key="M10" value="67.18078846525295" />
+      <entry key="M15" value="84.29926559435417" />
+      <entry key="M30" value="110.09626190869972" />
+      <entry key="H1" value="127.55589301457049" />
+      <entry key="H2" value="137.72725770486892" />
+      <entry key="H4" value="143.2187687411672" />
+      <entry key="D1" value="148.01570124700763" />
+      <entry key="W1" value="148.8588689090196" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.3039077710554186" />
+      <entry key="MS500" value="3.16642289093811" />
+      <entry key="S2" value="8.961352223733824" />
+      <entry key="S5" value="16.267425962875592" />
+      <entry key="S10" value="22.319384873855018" />
+      <entry key="S30" value="29.149498943415345" />
+      <entry key="S60" value="31.42487508899812" />
+      <entry key="M2" value="32.91414483722358" />
+      <entry key="M5" value="43.20181407639433" />
+      <entry key="M10" value="67.18037374389617" />
+      <entry key="M15" value="84.29891565112734" />
+      <entry key="M30" value="110.0960313838209" />
+      <entry key="H1" value="127.55575890267859" />
+      <entry key="H2" value="137.72718515092092" />
+      <entry key="H4" value="143.21873097898458" />
+      <entry key="D1" value="148.0156947369923" />
+      <entry key="W1" value="148.85886797358447" />
+    </decayedShown>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3KXSj0jmtz7S8DsblMCZol0DWhF" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Spring Boot.DesktopInventoryApplication.executor": "Run",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/chinmoy/Development/Projects/InventoryIQ247",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "to.speed.mode.migration.done": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="DesktopInventoryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UnknownPolicyInFreeMode" />
+      <module name="InventoryIQ247" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.inventory.DesktopInventoryApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.inventory.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.DesktopInventoryApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-a203e0a19954-intellij.indexing.shared.core-IU-262.10968.63" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.10968.63" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="73718c38-0e6c-4ac7-9a00-39711ab72739" name="Changes" comment="" />
+      <created>1791702551680</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1791702551680</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="created landing page" />
+    <option name="LAST_COMMIT_MESSAGE" value="created landing page" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

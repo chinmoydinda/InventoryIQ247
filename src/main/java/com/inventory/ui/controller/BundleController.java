@@ -70,6 +70,17 @@ public class BundleController {
 
     @FXML
     public void initialize() {
+        bundleTable.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) { loadProducts(); loadBundles(); }
+        });
+        bundleTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
+        bundleTable.setPlaceholder(new javafx.scene.control.Label("No bundles found. Create a kit to get started."));
+        componentsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN);
+        componentsTable.setPlaceholder(new javafx.scene.control.Label("Select a bundle to view its components."));
+        deleteBundleBtn.disableProperty().bind(bundleTable.getSelectionModel().selectedItemProperty().isNull());
+        dispatchBtn.disableProperty().bind(bundleTable.getSelectionModel().selectedItemProperty().isNull());
+        restockBtn.disableProperty().bind(bundleTable.getSelectionModel().selectedItemProperty().isNull());
+
         dispatchQtySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10000, 1));
 
         dispatchBtn.setOnAction(e -> processBundleMovement(false));
@@ -99,7 +110,11 @@ public class BundleController {
         colCompQty.setCellValueFactory(new PropertyValueFactory<>("quantityRequired"));
 
         bundleTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
-            if (newSel != null) {
+            if (newSel == null) {
+                bundleIdField.clear();
+                componentsTable.getItems().clear();
+                availabilityLabel.setText("Select a bundle from the catalog");
+            } else {
                 bundleIdField.setText(String.valueOf(newSel.getId()));
                 loadComponentsForBundle(newSel.getId());
                 calculateAvailability();
@@ -151,7 +166,10 @@ public class BundleController {
             }
         };
         fetchTask.setOnSucceeded(e -> {
-            componentsTable.setItems(FXCollections.observableArrayList(fetchTask.getValue()));
+            if (bundleTable.getSelectionModel().getSelectedItem() != null
+                    && bundleId.equals(bundleTable.getSelectionModel().getSelectedItem().getId())) {
+                componentsTable.setItems(FXCollections.observableArrayList(fetchTask.getValue()));
+            }
         });
         new Thread(fetchTask).start();
     }
@@ -235,7 +253,8 @@ public class BundleController {
             };
             
             calcTask.setOnSucceeded(e -> {
-                availabilityLabel.setText("Maximum limit: " + calcTask.getValue() + " bundles possible");
+                if (!String.valueOf(bundleId).equals(bundleIdField.getText())) return;
+                availabilityLabel.setText(calcTask.getValue() + " bundles available");
                 availabilityLabel.setStyle("-fx-text-fill: #181c32; -fx-font-weight: bold;");
             });
             new Thread(calcTask).start();
@@ -245,6 +264,7 @@ public class BundleController {
     private void processBundleMovement(boolean isRestock) {
         try {
             Long bundleId = Long.parseLong(bundleIdField.getText());
+            dispatchQtySpinner.commitValue();
             int qty = dispatchQtySpinner.getValue();
             
             Task<Void> dispatchTask = new Task<>() {

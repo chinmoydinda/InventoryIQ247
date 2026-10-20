@@ -2,91 +2,84 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
-
-<HBox spacing="20" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.inventory.ui.controller.BundleController" styleClass="background-pane">
-    <padding>
-        <Insets top="30" right="30" bottom="30" left="30"/>
-    </padding>
-
-    <!-- Left Pane: Bundle Creation -->
-    <VBox spacing="20" styleClass="card" prefWidth="350">
-        <Label text="Create Bundle" styleClass="page-title"/>
-        <Separator/>
-        <GridPane hgap="10" vgap="20">
-            <Label text="Bundle SKU" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="text-muted"/>
-            <TextField fx:id="newBundleSkuField" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2"/>
-            
-            <Label text="Bundle Name" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="text-muted"/>
-            <TextField fx:id="newBundleNameField" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2"/>
-            
-            <Label text="Bundle Price ($)" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="text-muted"/>
-            <TextField fx:id="newBundlePriceField" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="2"/>
-        </GridPane>
-        
-        <Label text="Recipe Items" styleClass="section-title"/>
-        <HBox spacing="10">
-            <ComboBox fx:id="productComboBox" promptText="Select Product" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
-            <TextField fx:id="requiredQtyField" promptText="Qty" prefWidth="70"/>
-            <Button fx:id="addComponentBtn" text="+" styleClass="accent" prefWidth="40"/>
-        </HBox>
-        <ListView fx:id="recipeListView" prefHeight="130"/>
-        
-        <Region VBox.vgrow="ALWAYS"/>
-        <Button fx:id="saveBundleBtn" text="Save Full Bundle" styleClass="success" maxWidth="Infinity" prefHeight="45" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+<VBox xmlns:fx="http://javafx.com/fxml/1" spacing="22" styleClass="page" fx:controller="com.inventory.ui.controller.BundleController">
+    <VBox spacing="6">
+        <Label text="Bundles" styleClass="page-title" wrapText="true" />
+        <Label text="Build product kits and manage component availability." styleClass="page-subtitle" wrapText="true" />
     </VBox>
-    
-    <!-- Middle & Right Pane: Tables and Dispatch -->
-    <VBox spacing="20" HBox.hgrow="ALWAYS">
-        
-        <!-- Top Card: Bundle List -->
-        <VBox spacing="15" styleClass="card" VBox.vgrow="ALWAYS">
-            <HBox alignment="CENTER_LEFT" spacing="15">
-                <Label text="Bundle Catalog" styleClass="page-title"/>
-                <Region HBox.hgrow="ALWAYS"/>
-                <TextField fx:id="searchField" promptText="🔍 Search Bundles..." prefWidth="250" style="-fx-background-radius: 20;"/>
-                <Button fx:id="deleteBundleBtn" text="Delete Selected" styleClass="danger"/>
-            </HBox>
-            <TableView fx:id="bundleTable" VBox.vgrow="ALWAYS">
-                <columns>
-                    <TableColumn fx:id="colBundleId" text="ID" prefWidth="50"/>
-                    <TableColumn fx:id="colBundleSku" text="SKU" prefWidth="120"/>
-                    <TableColumn fx:id="colBundleName" text="Name" prefWidth="250"/>
-                    <TableColumn fx:id="colBundlePrice" text="Price" prefWidth="80"/>
-                    <TableColumn fx:id="colBundleQty" text="Max Available" prefWidth="100"/>
-                </columns>
-            </TableView>
-        </VBox>
-        
-        <!-- Bottom Area: Components & Dispatch side-by-side -->
-        <HBox spacing="20" prefHeight="260">
-            <VBox spacing="10" styleClass="card" HBox.hgrow="ALWAYS" prefWidth="300">
-                <Label text="Components List" styleClass="section-title"/>
-                <TableView fx:id="componentsTable" VBox.vgrow="ALWAYS">
+    <HBox spacing="20" styleClass="background-pane" VBox.vgrow="ALWAYS" minHeight="0">
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefWidth="326" minWidth="300" styleClass="form-scroll">
+            <VBox spacing="14" styleClass="card" prefWidth="290">
+                <Label text="Create Bundle" styleClass="section-title" />
+                <Separator />
+                <GridPane hgap="10" vgap="8">
+                    <columnConstraints><ColumnConstraints percentWidth="50"/><ColumnConstraints percentWidth="50"/></columnConstraints>
+                    <Label text="Bundle SKU" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="text-muted" />
+                    <TextField fx:id="newBundleSkuField" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" promptText="e.g. KIT-001" />
+                    <Label text="Bundle Name" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="text-muted" />
+                    <TextField fx:id="newBundleNameField" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" promptText="Enter bundle name" />
+                    <Label text="Bundle Price ($)" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="text-muted" />
+                    <TextField fx:id="newBundlePriceField" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="2" promptText="0.00" />
+                </GridPane>
+                <Label text="Recipe Items" styleClass="section-title" />
+                <HBox spacing="10">
+                    <ComboBox fx:id="productComboBox" promptText="Select Product" minWidth="0" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                    <TextField fx:id="requiredQtyField" promptText="Qty" prefWidth="55" minWidth="55" />
+                    <Button fx:id="addComponentBtn" text="+" styleClass="accent" prefWidth="40" />
+                </HBox>
+                <ListView fx:id="recipeListView" prefHeight="130" />
+                <Region VBox.vgrow="ALWAYS" />
+                <Button fx:id="saveBundleBtn" text="Save Full Bundle" styleClass="success" maxWidth="Infinity" prefHeight="45" />
+            </VBox>
+        </ScrollPane>
+        <VBox spacing="20" HBox.hgrow="ALWAYS">
+            <VBox spacing="15" styleClass="card" VBox.vgrow="ALWAYS">
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <Label text="Bundle catalog" styleClass="section-title" />
+                    <Region HBox.hgrow="ALWAYS" />
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField fx:id="searchField" promptText="Search by name or SKU" prefWidth="220" minWidth="140" HBox.hgrow="ALWAYS" maxWidth="Infinity" />
+                    <Button fx:id="deleteBundleBtn" text="Delete Selected" styleClass="danger" />
+                </HBox>
+                <TableView fx:id="bundleTable" VBox.vgrow="ALWAYS" minHeight="120">
                     <columns>
-                        <TableColumn fx:id="colCompSku" text="SKU" prefWidth="90"/>
-                        <TableColumn fx:id="colCompName" text="Product" prefWidth="140"/>
-                        <TableColumn fx:id="colCompQty" text="Qty" prefWidth="60"/>
+                        <TableColumn fx:id="colBundleId" text="ID" prefWidth="50" />
+                        <TableColumn fx:id="colBundleSku" text="SKU" prefWidth="120" />
+                        <TableColumn fx:id="colBundleName" text="Name" prefWidth="250" />
+                        <TableColumn fx:id="colBundlePrice" text="Price" prefWidth="80" />
+                        <TableColumn fx:id="colBundleQty" text="Max Available" prefWidth="100" />
                     </columns>
                 </TableView>
             </VBox>
-            
-            <VBox spacing="15" styleClass="card" prefWidth="350">
-                <Label text="Adjust Bundle Inventory" styleClass="section-title"/>
-                <Separator/>
-                <GridPane hgap="10" vgap="10">
-                     <TextField fx:id="bundleIdField" promptText="Selected Bundle ID" editable="false" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" style="-fx-background-color: #f3f6f9; -fx-text-fill: #7e8299;"/>
-                     <Label text="Select Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="text-muted"/>
-                     <Spinner fx:id="dispatchQtySpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity"/>
-                </GridPane>
-                
-                <Label fx:id="availabilityLabel" text="Select a bundle from the catalog" style="-fx-text-fill: #3f4254; -fx-font-weight: bold;"/>
-                
-                <Region VBox.vgrow="ALWAYS"/>
-                <HBox spacing="10">
-                    <Button fx:id="dispatchBtn" text="➖ Dispatch" styleClass="danger" HBox.hgrow="ALWAYS" maxWidth="Infinity" prefHeight="35"/>
-                    <Button fx:id="restockBtn" text="✚ Restock" styleClass="success" HBox.hgrow="ALWAYS" maxWidth="Infinity" prefHeight="35"/>
-                </HBox>
-            </VBox>
-        </HBox>
-    </VBox>
-</HBox>
+            <HBox spacing="20" prefHeight="280">
+                <VBox spacing="10" styleClass="card" HBox.hgrow="ALWAYS" prefWidth="300" minWidth="0">
+                    <Label text="Components List" styleClass="section-title" />
+                    <TableView fx:id="componentsTable" VBox.vgrow="ALWAYS" minHeight="120">
+                        <columns>
+                            <TableColumn fx:id="colCompSku" text="SKU" prefWidth="90" />
+                            <TableColumn fx:id="colCompName" text="Product" prefWidth="140" />
+                            <TableColumn fx:id="colCompQty" text="Qty" prefWidth="60" />
+                        </columns>
+                    </TableView>
+                </VBox>
+                <VBox spacing="15" styleClass="card" prefWidth="350" minWidth="0" HBox.hgrow="ALWAYS">
+                    <Label text="Adjust Bundle Inventory" styleClass="section-title" />
+                    <Separator />
+                    <GridPane hgap="10" vgap="8">
+                    <columnConstraints><ColumnConstraints percentWidth="50"/><ColumnConstraints percentWidth="50"/></columnConstraints>
+                        <TextField fx:id="bundleIdField" promptText="Selected Bundle ID" editable="false" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" />
+                        <Label text="Select Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="text-muted" />
+                        <Spinner fx:id="dispatchQtySpinner" editable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" />
+                    </GridPane>
+                    <Label fx:id="availabilityLabel" wrapText="true" text="Select a bundle from the catalog" />
+                    <Region VBox.vgrow="ALWAYS" />
+                    <HBox spacing="10">
+                        <Button fx:id="dispatchBtn" text="Dispatch" styleClass="danger" HBox.hgrow="ALWAYS" maxWidth="Infinity" prefHeight="35" />
+                        <Button fx:id="restockBtn" text="Restock" styleClass="success" HBox.hgrow="ALWAYS" maxWidth="Infinity" prefHeight="35" />
+                    </HBox>
+                </VBox>
+            </HBox>
+        </VBox>
+    </HBox>
+</VBox>

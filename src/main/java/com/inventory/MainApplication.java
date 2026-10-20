@@ -25,13 +25,13 @@ public class MainApplication extends Application {
         SpringFXMLLoader fxmlLoader = applicationContext.getBean(SpringFXMLLoader.class);
         Parent root = (Parent) fxmlLoader.load("/fxml/main_layout.fxml");
         
-        Scene scene = new Scene(root, 1300, 800);
+        Scene scene = new Scene(root, 1440, 900);
         scene.getStylesheets().add(getClass().getResource("/css/style.css").toExternalForm());
         
-        stage.setTitle("NextGen Inventory & Stock System");
+        stage.setTitle("InventoryIQ247 | Inventory workspace");
         stage.setScene(scene);
-        stage.setMinWidth(1100);
-        stage.setMinHeight(700);
+        stage.setMinWidth(1200);
+        stage.setMinHeight(780);
         stage.show();
     }
 
