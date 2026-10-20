@@ -4,20 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="73718c38-0e6c-4ac7-9a00-39711ab72739" name="Changes" comment="created landing page">
-      <change beforePath="$PROJECT_DIR$/InventoryIQ247.iml" beforeDir="false" afterPath="$PROJECT_DIR$/InventoryIQ247.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/inventory/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/inventory/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/AuditController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/AuditController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/BundleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/BundleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/DashboardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/MainController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/inventory/ui/controller/ProductController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/audit_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/audit_view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/bundle_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/bundle_view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/dashboard_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/dashboard_view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/main_layout.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/main_layout.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/product_view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/product_view.fxml" afterDir="false" />
+    <list default="true" id="73718c38-0e6c-4ac7-9a00-39711ab72739" name="Changes" comment="revamped the ui">
+      <change beforePath="$PROJECT_DIR$/generate_advanced.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_bundle_components.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_bundle_fix.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_bundle_qty_fix.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_bundle_search.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_bundle_table.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_design.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_excel_import.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_excel_ui.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_features.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_inventory.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_search.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_spinners.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/generate_views.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,23 +49,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.3476238074220372" />
-      <entry key="MS500" value="3.1875161887860903" />
-      <entry key="S2" value="8.97645671632307" />
-      <entry key="S5" value="16.278536974528404" />
-      <entry key="S10" value="22.327153903777678" />
-      <entry key="S30" value="29.15294617621074" />
-      <entry key="S60" value="31.42674351646687" />
-      <entry key="M2" value="32.91512633107433" />
-      <entry key="M5" value="43.20233668921252" />
-      <entry key="M10" value="67.18078846525295" />
-      <entry key="M15" value="84.29926559435417" />
-      <entry key="M30" value="110.09626190869972" />
-      <entry key="H1" value="127.55589301457049" />
-      <entry key="H2" value="137.72725770486892" />
-      <entry key="H4" value="143.2187687411672" />
-      <entry key="D1" value="148.01570124700763" />
-      <entry key="W1" value="148.8588689090196" />
+      <entry key="MS100" value="1.3276064997071855" />
+      <entry key="MS500" value="3.4506069450751737" />
+      <entry key="S2" value="8.007793211523175" />
+      <entry key="S5" value="14.085616067159773" />
+      <entry key="S10" value="20.230859153431286" />
+      <entry key="S30" value="32.01734334259093" />
+      <entry key="S60" value="40.64422087713843" />
+      <entry key="M2" value="48.758370304540975" />
+      <entry key="M5" value="62.16057178533258" />
+      <entry key="M10" value="84.6631500955591" />
+      <entry key="M15" value="104.59439167954244" />
+      <entry key="M30" value="141.59821913508068" />
+      <entry key="H1" value="171.35846895165167" />
+      <entry key="H2" value="190.41787850353361" />
+      <entry key="H4" value="201.22831356681078" />
+      <entry key="D1" value="210.96757111069076" />
+      <entry key="W1" value="212.70787611203804" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -86,23 +87,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.3039077710554186" />
-      <entry key="MS500" value="3.16642289093811" />
-      <entry key="S2" value="8.961352223733824" />
-      <entry key="S5" value="16.267425962875592" />
-      <entry key="S10" value="22.319384873855018" />
-      <entry key="S30" value="29.149498943415345" />
-      <entry key="S60" value="31.42487508899812" />
-      <entry key="M2" value="32.91414483722358" />
-      <entry key="M5" value="43.20181407639433" />
-      <entry key="M10" value="67.18037374389617" />
-      <entry key="M15" value="84.29891565112734" />
-      <entry key="M30" value="110.0960313838209" />
-      <entry key="H1" value="127.55575890267859" />
-      <entry key="H2" value="137.72718515092092" />
-      <entry key="H4" value="143.21873097898458" />
-      <entry key="D1" value="148.0156947369923" />
-      <entry key="W1" value="148.85886797358447" />
+      <entry key="MS100" value="1.2824067911766472" />
+      <entry key="MS500" value="3.4279107717885733" />
+      <entry key="S2" value="7.99564799420869" />
+      <entry key="S5" value="14.07718311777297" />
+      <entry key="S10" value="20.224768175450038" />
+      <entry key="S30" value="32.01406594325702" />
+      <entry key="S60" value="40.64210187284084" />
+      <entry key="M2" value="48.757073104845006" />
+      <entry key="M5" value="62.159887461492225" />
+      <entry key="M10" value="84.66266689432436" />
+      <entry key="M15" value="104.59398550823578" />
+      <entry key="M30" value="141.5979375522065" />
+      <entry key="H1" value="171.35829645525484" />
+      <entry key="H2" value="190.41778208036828" />
+      <entry key="H4" value="201.22826246642472" />
+      <entry key="D1" value="210.96756215990501" />
+      <entry key="W1" value="212.70787482227024" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -184,7 +185,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="created landing page" />
-    <option name="LAST_COMMIT_MESSAGE" value="created landing page" />
+    <MESSAGE value="revamped the ui" />
+    <option name="LAST_COMMIT_MESSAGE" value="revamped the ui" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
